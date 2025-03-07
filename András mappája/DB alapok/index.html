@@ -1,0 +1,118 @@
+<meta charset="UTF-8">
+
+
+<div>
+    <div>
+        <input id="search_name" class="col_search" placeholder="Név">
+        <input id="search_role"  class="col_search"placeholder="Munkakör">
+        <input id="search_status"  class="col_search"placeholder="Állapot">
+
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Név</td>
+                    <td>Munkakör</td>
+                    <td>Utolsó esemény</td>
+                    <td>Státusz</td>
+                </tr>
+            </thead>
+            <tbody id="table_results"></tbody>
+        </table>
+        <h4>További találat: <span id="resultCount">0</span></h4>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+
+    const Ajax = (obj) =>{
+        /*
+        method      :   get/post
+        url         :    hívás címe
+        data        : beküldött adatok / JSON preferált,
+        response    :   json, vagy elhagyható
+        */
+        if(obj.data == null){   obj.data = {} }
+        let data = null
+        var httpRequest = new XMLHttpRequest() 
+        httpRequest.onreadystatechange = (e)=>{
+            if(obj.data == null){   obj.data = {} }
+            if(e.target.readyState ==4){
+                data = obj.response == "json" ? JSON.parse(e.target.response) : e.target.response
+            }
+        }
+        
+        let input = ""
+        Object.keys(obj.data).forEach((key,index)=>{
+            obj.data[key] = obj.data[key].split("&").join("Ł")
+            input += `${key}=${obj.data[key]}`
+            if(  index < Object.keys(obj.data).length-1){
+                input += "&"
+            }
+        })
+        let prefix = ""
+        if( obj.method == "get"){ prefix = `?${input}` }
+        httpRequest.open(obj.method, `${obj.url}${prefix}`, false)
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        httpRequest.send(input)
+        return data
+    } 
+
+
+
+
+
+
+const searchUser = (obj) =>{
+
+    const resultCount = document.querySelector("#resultCount")
+    const ajaxResult = Ajax({
+        method:"post",
+        url:"./backend.php",
+        response:"json",
+        data:obj
+    })
+    resultCount.textContent = ajaxResult.total - ajaxResult.dataSet.length
+console.log(ajaxResult)
+
+    const table_results = document.querySelector("#table_results")
+    table_results.innerHTML = ""
+    ajaxResult.dataSet.forEach(itm=>{
+        table_results.innerHTML += `
+            <tr>
+                <td>${itm.id}</td>    
+                <td>${itm.userName}</td>    
+                <td>${itm.roleName}</td>    
+                <td>${itm.lastEvent}</td>    
+                <td>${itm.statusName}</td>    
+  
+            </tr>
+        `
+    })
+        
+}
+
+
+const search_name = document.querySelector("#search_name")
+    const search_role = document.querySelector("#search_role")
+    const search_status = document.querySelector("#search_status")
+    const col_search = document.querySelectorAll(".col_search")
+
+
+col_search.forEach(itm=>{
+    itm.addEventListener("keyup",()=>{
+
+        searchUser({name:search_name.value, role:search_role.value, status:search_status.value})
+    })
+})
+
+
+</script>
