@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS alapok</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="./3_komplex/styles.css?version=0.0.0.1">
+    </head>
+    <body>
+        <div class="container">
+            <div class="container w-100" id="section1"></div>
+            <div class="container w-100" id="section2"></div>
+        </div>
+    <script src="./3_komplex/dataSet.js?version=0.0.0.1"></script>
+    <script src="./3_komplex/dataSet2.js?version=0.0.0.1"></script>
+    <script src="./3_komplex/scripts.js?version=0.0.0.1"></script>
+    <script>
+        render({dataSet:data,sectionId:"section1"})
+        render({dataSet:data2,sectionId:"section2"})
+
+    </script>
+    </body>
+</html>
