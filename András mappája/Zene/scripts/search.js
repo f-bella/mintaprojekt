@@ -19,11 +19,11 @@
                                 <div>
                                     ${ itm.song == null ? "" : `<b>${itm.song}</b> -> `}
                                     
-                                    ${itm.artist}
+                                    <span class="artist">${itm.artist}</div>
 
                                     ${ itm.genre == null ? "" : ` -> <b>${itm.genre}</b>`}
                                    
                                 </div>`
         })
-
+        events()
     })

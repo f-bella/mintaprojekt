@@ -1,0 +1,1 @@
+const {Router} = await import(`./Components/Router/Router.js${appVersion}`)

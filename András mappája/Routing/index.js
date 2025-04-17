@@ -1,0 +1,1 @@
+const {} = await import(`./src/App.js${appVersion}`)
