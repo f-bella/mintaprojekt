@@ -2,6 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <style>
+            
+            .container{
+                padding:20px;
+                border-radius:3px;
+                margin:7px;
+                display:inline-block;
+                min-width:300px;
+                border:1px solid black;
+            
+            }
+   
+        </style>
     </head>
     <body>
         <select class="selector">
@@ -11,11 +24,27 @@
             <option value="getGenre">Besorolás</option>
         </select>
         <input class="song" placeholder="Írj be valamit">
-        <div class="result"></div>
+
+        <div>
+            <div class="container">
+                <div class="result"></div>
+            </div>
+            <div class="container" style="position:absolute;">
+                <div class="details">Eredményre várok</div>
+            </div>
+        </div>
+
+
     </body>
     <scripts>
+
+        <script>
+            console.log(navigator)
+        </script>
         <script src="./scripts/ajax.js"></script>
         <script src="./scripts/selector.js"></script>
         <script src="./scripts/search.js"></script>
+        <script src="./scripts/events.js"></script>
+        <script src="./scripts/getDetails.js"></script>
     </scripts>
 </html>
